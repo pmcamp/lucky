@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Lucky</title>
+    </head>
+    <style type="text/css">
+        body {
+            background-color: #272B30;
+        }
+        #container {
+            margin: 0 auto;
+            color: #E36B23;
+        }
+    </style>
+    <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/1.8.0/jquery-1.8.0.min.js'></script>
+    <script src='js/people.js'></script>
+    <script>
+        var all_people = [
+                  'songbao123456', 'songge123456', 'songjianfei123456',
+                  'xutian123456', 'jiantonghe123456', 'jianshu123456',
+                  'geluhe123456', 'wujianmei', 'wushuhe', 'wuouming',
+                  'wuyiha', 'songm', 'song', 'songba', 'songg', 'songjia'
+                ];
+        var lucky = (function (){
+            function initDb() {
+                db = openDatabase("lucky", "1.0", "lucky draw", 1000);
+                db.transaction(function(tx) {
+                    tx.executeSql("CREATE TABLE IF NOT EXISTS names (name TEXT, status)");
+                });
+            }
+
+            //import data
+            function import_data() {
+                db.transaction(function (tx) {
+                    for (i=0; i< all_people.length; i++) {
+                        var name = all_people[i];
+                        tx.executeSql('INSERT INTO names (name, status) VALUES (?, 0)', [name]);
+                    }
+                });
+            }
+
+            return {
+                init: initDb,
+                import_data: import_data,
+            }
+        })();
+        $(function(){
+            lucky.init();
+
+            db.transaction(function (tx) {
+                tx.executeSql('SELECT * FROM names', [], function (tx, results) {
+                    var len = results.rows.length, i;
+                    for (i = 0; i < len; i++) {
+                        var name = results.rows.item(i).name;
+                        $('ul').prepend('<li>'+name+'</li>')
+                    }
+                });
+            });
+
+        });
+    </script>
+    <body>
+        <h1>all people<h1>
+        <div id="container">
+            <ul>
+            </ul>
+        </div>
+    </body>
+</html>
