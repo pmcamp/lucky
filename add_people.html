@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Lucky</title>
+</head>
+<style type="text/css">
+body {
+    background-color: #272B30;
+}
+#container {
+    margin: 0 auto;
+    color: #E36B23;
+}
+</style>
+<script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/1.8.0/jquery-1.8.0.min.js'></script>
+<script>
+$(function(){
+    $('form').submit(function(){
+        var data = $('textarea').val().split('\n');
+        db.transaction(function(tx) {
+            for (i = 0; i < data.length; i++) {
+                tx.executeSql('INSERT INTO names (name, status) VALUES (?, 0)', [data[i]]);
+            }
+        });    
+        
+    });
+});
+</script>
+<body>
+    <form>
+        <textarea rows="20" cols="80"></textarea><br />
+        <button type="submit">save</button>
+    </form>
+</body>
+</html>

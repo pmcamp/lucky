@@ -14,7 +14,6 @@
         }
     </style>
     <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/1.8.0/jquery-1.8.0.min.js'></script>
-    <script src='js/people.js'></script>
     <script>
         var all_people = [
                   'songbao123456', 'songge123456', 'songjianfei123456',
@@ -26,7 +25,7 @@
             function initDb() {
                 db = openDatabase("lucky", "1.0", "lucky draw", 1000);
                 db.transaction(function(tx) {
-                    tx.executeSql("CREATE TABLE IF NOT EXISTS names (name TEXT, status)");
+                    tx.executeSql("CREATE TABLE IF NOT EXISTS names (id INTEGER PRIMARY KEY ASC, name TEXT unique, status INTEGER)");
                 });
             }
 
@@ -47,7 +46,7 @@
         })();
         $(function(){
             lucky.init();
-
+            lucky.import_data();
             db.transaction(function (tx) {
                 tx.executeSql('SELECT * FROM names', [], function (tx, results) {
                     var len = results.rows.length, i;
