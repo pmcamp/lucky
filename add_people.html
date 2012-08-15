@@ -16,6 +16,7 @@ body {
 <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/1.8.0/jquery-1.8.0.min.js'></script>
 <script>
 $(function(){
+    var db = openDatabase("lucky", "1.0", "lucky draw", 1000);
     $('form').submit(function(){
         var data = $('textarea').val().split('\n');
         db.transaction(function(tx) {
@@ -23,7 +24,7 @@ $(function(){
                 tx.executeSql('INSERT INTO names (name, status) VALUES (?, 0)', [data[i]]);
             }
         });    
-        
+
     });
 });
 </script>
