@@ -3,7 +3,6 @@ var lucky = (function (){
 
   this.speed = 50;
   this.intervalID;
-  this.currentTicket;
 
   var db = openDatabase("lucky", "1.0", "lucky draw", 1000);
 
@@ -59,7 +58,6 @@ var lucky = (function (){
         var i = rand(results.rows.length);
         var name = results.rows.item(i).name;
         $('#random').text(name);
-        this.currentTicket = name;
       });
     });
   }
@@ -72,12 +70,11 @@ var lucky = (function (){
     clearInterval(this.intervalID);
 
     db.transaction(function(tx) {
-      tx.executeSql("UPDATE names SET status=1 WHERE name = ?", [this.currentTicket], function (tx, results) {
+      tx.executeSql("UPDATE names SET status=1 WHERE name = ?", [$('#random').text()], function (tx, results) {
         this.showLuckyNames();
         this.showAllTickets();
       });
     });
-
   };
 
   return this;
