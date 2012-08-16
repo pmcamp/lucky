@@ -22,6 +22,13 @@ var lucky = (function (){
     });
   }
 
+  this.flush = function() {
+    db.transaction(function (tx) {
+      tx.executeSql('DELETE FROM names');
+    });
+    this.showAllTickets();
+  }
+
   this.tickets = function(){
     if(_tickets.length == 0){
       db.transaction(function (tx) {
