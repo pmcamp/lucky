@@ -7,41 +7,53 @@
 
     <link rel="stylesheet" type="text/css" href="stylesheets/application.css">
 
-    <script type="text/javascript" src="lib/jquery-1.8.0.min.js"></script>
-    <script type="text/javascript" src="lib/rand.js"></script>
-    <script language=javascript>
-      var tickets = [
-        "a", "b", "c", "e", "f"
-      ];
+    <script type="text/javascript" src="js/lib/jquery-1.8.0.min.js"></script>
+    <script type="text/javascript" src="js/lib/rand.js"></script>
 
-      var speed = 100;
-      var flg;
-      function start() {
-        flg = 1;
-        nothing();
-      }
-      function stop() {
-        flg = 0
-      }
-      function nothing() {
-        var r = rand(tickets.length);
-        $('#random').text(tickets[r]);
-        if (flg == 0)
-            return false
-        setTimeout("nothing()", 40)
-      }
-    </script>
+    <script type="text/javascript" src="js/application.js"></script>
   </head>
   <body>
 
-
-    <div id="random-container">
-      <h1 id="random">开始抽奖啦！<h1>
+    <div class="nav">
+      <div class="container">
+        <!-- <a href="/" class="main">Lucky</a> -->
+        <nav>
+          <!-- <a href="/" class="">Home</a>
+          <a href="/about-us/" class="">About us</a> -->
+        </nav>
+      </div>
     </div>
 
-    <div id="actions">
-      <input type=button value="start" onclick=start() name=button1>
-      <input type=button value="stop" onclick=stop() name=button2>
+    <div id="lucky-draw">
+      <div class="container">
+        <div id="random-container">
+          <h1 id="random">开始抽奖啦！<h1>
+        </div>
+
+        <div id="actions">
+          <input id="lucky-button" type="button" value="开 始" />
+        </div>
+      </div>
+    </div>
+
+
+    <div class="container">
+      <h2 class="page-title">中奖名单</h2>
+      <ul id="lucky-names"></ul>
+    </div>
+
+    <div class="container import">
+      <h2 class="page-title">导入数据</h2>
+      <textarea id="data-source"></textarea>
+      <div>
+        <button id="import-button"  class="btn btn-success" href="#">导入数据</button>
+      </div>
+    </div>
+
+    <div class="container">
+      <table id="tickets">
+        <tbody></tbody>
+      </table>
     </div>
 
   </body>
