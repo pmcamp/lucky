@@ -29,30 +29,6 @@ var lucky = (function (){
     });
   }
 
-<<<<<<< HEAD
-  this.flush = function() {
-    db.transaction(function (tx) {
-      tx.executeSql('DELETE FROM names');
-    });
-    this.showAllTickets();
-  }
-
-  this.tickets = function(){
-    if(_tickets.length == 0){
-      db.transaction(function (tx) {
-        tx.executeSql('SELECT * FROM names WHERE status = 0', [], function (tx, results) {
-          var len = results.rows.length, i;
-          for (i = 0; i < len; i++){
-            _tickets.push(results.rows.item(i).name);
-          }
-        });
-      });
-    }
-    return _tickets;
-  }
-
-=======
->>>>>>> 优化代码
   this.showAllTickets = function(){
     $('#tickets').empty();
     db.transaction(function (tx) {
@@ -98,6 +74,7 @@ var lucky = (function (){
     db.transaction(function(tx) {
       tx.executeSql("UPDATE names SET status=1 WHERE name = ?", [this.currentTicket], function (tx, results) {
         this.showLuckyNames();
+        this.showAllTickets();
       });
     });
 
