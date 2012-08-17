@@ -88,6 +88,15 @@ $(function(){
   lucky.showLuckyNames();
   lucky.showAllTickets();
 
+  //点击body时，隐藏日期控件
+  $('body').bind('keydown', function(e){
+    var k = e.which || e.keyCode;
+    if(k == 32){
+      $('#lucky-button').click();
+      return false;
+    }
+  });
+
   $('body').delegate('#import-button', 'click', function(event){
     var list_str = $('#data-source').val();
     var names = [];
