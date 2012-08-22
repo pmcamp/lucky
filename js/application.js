@@ -55,8 +55,8 @@ var lucky = (function (){
   this.rolling = function(){
     db.transaction(function(tx) {
       tx.executeSql('SELECT * FROM names WHERE status = 0', [], function (tx, results) {
-        var i = rand(results.rows.length);
-        var name = results.rows.item(i).name;
+        var i = rand(results.rows.length+1);
+        var name = results.rows.item(i-1).name;
         $('#random').text(name);
       });
     });
